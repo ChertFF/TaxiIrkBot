@@ -23,7 +23,7 @@ from utils.send_media import third_sept, beats_latecomers, wow
 
 @dp.message_handler(Command("order"), IsPrivate())
 async def select_time_order(message: types.Message, state: FSMContext):
-    await message.answer(f'Подскажи, какой тип доставки тебя интерсует?', reply_markup=select_type_order_kb)
+    await message.answer(f'Подскажи, какой тип доставки тебя интересует?', reply_markup=select_type_order_kb)
 
 
 @dp.message_handler(IsPrivate(), text="Вечерняя доставка")
