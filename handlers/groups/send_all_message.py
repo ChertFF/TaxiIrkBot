@@ -39,7 +39,7 @@ async def send_all_in_state(message: types.Message, state: FSMContext):
             try:
                 await bot.send_message(user.chat_id, Send)
                 logging.warning(f'Сообщение из массовой рассылки отправлено пользователю: {user.chat_id} | {user.name}')
-            except TelegramAPIError:
+            except:
                 logging.warning(
                     f'Ошибка! Сообщение из массовой рассылки НЕ отправлено пользователю: {user.chat_id} | {user.name}')
                 await sleep(1)

@@ -31,7 +31,7 @@ async def select_time_morning_order(message: types.Message):
     else:
         await message.answer(
             f"{fmt.hbold('Обрати внимание!')}\n"
-            f"{fmt.hbold('Запись в утреннюю доставку доступна сотрудникам, чьи смены начинаются с 06:30. Именение данных по заказу доступно до 22:00')} \n\n")
+            f"{fmt.hbold('Запись в утреннюю доставку доступна сотрудникам, чьи смены начинаются с 06:30.')} \n\n")
         await message.answer(
             f'Подскажи, на какое время тебе нужна доставка? {emoji.emojize(":slightly_smiling_face:")}',
             reply_markup=select_second_time)
@@ -148,11 +148,11 @@ async def change_info(message: types.Message, state: FSMContext):
     else:
         if second_check_time() is False and user.second_ordered != 1:
             await message.answer(
-                f'Увы, добавиться в утреннюю доставку можно было до 22:00 {emoji.emojize(":expressionless_face:")}\n\n',
+                f'Увы, добавиться в утреннюю доставку можно было до 18:00 {emoji.emojize(":expressionless_face:")}\n\n',
                 reply_markup=ReplyKeyboardRemove())
             logging.warning(
                 f'Пользователь {message.from_user.id} поздно добавился в утреннюю доставку | {user.name}, {user.second_city} {user.second_address}, {user.number}, {user.time} | Отказ в записи')
-            await second_send_notify_admins(dp, message, user, "Попытка записи в утреннюю доставку после 22:00")
+            await second_send_notify_admins(dp, message, user, "Попытка записи в утреннюю доставку после 18:00")
             await beats_latecomers(message)  # Отправляем Леху с молотком
         elif user.second_ordered == 1:
             await message.answer(
@@ -165,7 +165,7 @@ async def change_info(message: types.Message, state: FSMContext):
             await message.answer(f'Готово! Приятного рабочего дня {emoji.emojize(":check_mark:")}',
                                  reply_markup=ReplyKeyboardRemove())
             await message.answer(
-                f"Машины будут сформированы к 00:00. После этого времени ты можешь посмотреть сформированную доставку на корпоративной почте.\n")
+                f"Машины будут сформированы к 22:00. После этого времени ты можешь посмотреть сформированную доставку на корпоративной почте.\n")
             await user.update(second_ordered=1).apply()
             await second_send_notify_admins(dp, message, user, "Запись в утреннюю доставку")
             logging.warning(

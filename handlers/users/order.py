@@ -21,8 +21,18 @@ from utils.notify_admins import send_notify_admins
 from utils.send_media import third_sept, beats_latecomers, wow
 
 
-@dp.message_handler(Command("order"), IsPrivate())
+@dp.message_handler(Command("order"), IsPrivate(), state='*')
 async def select_time_order(message: types.Message, state: FSMContext):
+    await state.finish()
+    # await message.answer(
+    #     f"{fmt.hbold('ВАЖНО!')}\n", reply_markup=ReplyKeyboardRemove())
+    # await asyncio.sleep(1)
+    # await message.answer(
+    #     f"{fmt.hbold('C 11.03 интервал записи в утренний развоз будет ограничен:')}\n"
+    #     f"было - до 22:00, стало - до 18:00. \n\n"
+    #     f"Изменения проводятся с целью, чтобы вы могли получать распределение по утренним машинам намного раньше!")
+    # await wow(message)  # Отправляем Леху довольного
+    # await asyncio.sleep(3)
     await message.answer(f'Подскажи, какой тип доставки тебя интересует?', reply_markup=select_type_order_kb)
 
 
@@ -38,16 +48,6 @@ async def select_time_order(message: types.Message, state: FSMContext):
         await message.answer(
             f"{fmt.hbold('Обрати внимание!')}\n"
             f"{fmt.hbold('Запись в доставку и изменение данных по заказу доступно до 18:00')} \n\n")
-        # await message.answer(
-        #     f"{fmt.hbold('ВАЖНО!')}\n", reply_markup=ReplyKeyboardRemove())
-        # await asyncio.sleep(1)
-        # await message.answer(
-        #     f"{fmt.hbold('C 02.10 упраздняются ночные смены. Самые ранние смены будут начинаться в 06:30.')}\n\n"
-        #     f"Будет доступна запись в утреннюю доставку сотрудникам, чьи смены начинаются в это время. \n"
-        #     f"Тем, кто начинает свой рабочий день с 07:00 и позднее, утренняя доставка не будет доступна.\n"
-        #     f"Подробности можешь уточнить у своего руководителя!")
-        # await wow(message)  # Отправляем Леху довольного
-        # await asyncio.sleep(3)
         await message.answer(
             f'Подскажи, на какое время тебе нужна доставка? {emoji.emojize(":slightly_smiling_face:")}',
             reply_markup=select_time)

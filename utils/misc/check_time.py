@@ -24,7 +24,7 @@ def check_time():
 def second_check_time():
     current_time = datetime.datetime.now().time()
     start_time = datetime.time(3, 0)
-    end_time = datetime.time(22, 0)
+    end_time = datetime.time(18, 0)
     if start_time <= end_time:
         return start_time <= current_time <= end_time
     else:

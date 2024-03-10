@@ -1,6 +1,7 @@
 import logging
 
 import emoji
+from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Command, Text
 from aiogram.types import ReplyKeyboardRemove
 import aiogram.utils.markdown as fmt
@@ -14,8 +15,9 @@ from utils.db_api import quick_commands
 from utils.notify_admins import send_notify_admins
 
 
-@dp.message_handler(Command("cancel"), IsPrivate())
-async def select_time_order(message: types.Message):
+@dp.message_handler(Command("cancel"), IsPrivate(), state='*')
+async def select_time_order(message: types.Message, state: FSMContext):
+    await state.finish()
     await message.answer(f'Подскажи, от какой доставки ты хочешь отказаться?', reply_markup=select_cancel_order_kb)
 
 

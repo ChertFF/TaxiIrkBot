@@ -1,6 +1,7 @@
 import logging
 
 from aiogram import types
+from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.builtin import CommandStart
 
 from filters import IsPrivate
@@ -11,8 +12,9 @@ import emoji
 from utils.notify_admins import send_notify_admins_by_start
 
 
-@dp.message_handler(CommandStart())
-async def bot_start(message: types.Message):
+@dp.message_handler(CommandStart(), state='*')
+async def bot_start(message: types.Message, state: FSMContext):
+    await state.finish()
     try:
         user = await quick_commands.select_user(message.from_user.id)
         if user.chat_id == message.from_user.id:

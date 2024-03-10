@@ -13,8 +13,9 @@ from utils.db_api import quick_commands
 import aiogram.utils.markdown as fmt
 
 
-@dp.message_handler(Command("info"), IsPrivate())
+@dp.message_handler(Command("info"), IsPrivate(), state='*')
 async def select_time_order(message: types.Message, state: FSMContext):
+    await state.finish()
     user = await quick_commands.select_user(message.from_user.id)
 
     order = f"Заказан {emoji.emojize('✅')}" if user.ordered == 1 else f"Не заказан {emoji.emojize('❌')}"

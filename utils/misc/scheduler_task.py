@@ -43,7 +43,7 @@ async def send_reminder():
                 logging.warning(
                     f'Уведомление о записи в доставку отправлено пользователю: {user.chat_id} | {user.name}')
                 await asyncio.sleep(0.2)
-            except BotBlocked:
+            except:
                 logging.warning(
                     f'Ошибка! Уведомление о записи в доставку НЕ отправлено пользователю: {user.chat_id} | {user.name}')
                 await asyncio.sleep(0.2)

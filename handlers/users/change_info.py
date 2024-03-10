@@ -22,9 +22,10 @@ from utils.regular_expressions import correct_FI
 from utils.send_media import beats_latecomers
 
 
-@dp.message_handler(Command("changeinfo"), IsPrivate())
+@dp.message_handler(Command("changeinfo"), IsPrivate(), state='*')
 @dp.message_handler(IsPrivate(), text="Нужно изменить данные", state=Order.Confim)
 async def change_info(message: types.Message, state: FSMContext):
+    await state.finish()
     user = await quick_commands.select_user(message.from_user.id)
     if check_time() is False:
         await message.answer(

@@ -10,6 +10,6 @@ async def set_default_commands(dp):
             types.BotCommand("info", "Посмотреть данные о себе"),
             types.BotCommand("remind_me", "Управление напоминаниями"),
             types.BotCommand("help", "Вывести справку"),
-            types.BotCommand("feedback", "Оставить ОС по боту или BiBi"),
+            types.BotCommand("feedback", "Оставить ОС по боту или 222-222"),
         ]
     )

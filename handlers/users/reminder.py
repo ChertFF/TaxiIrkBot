@@ -10,8 +10,9 @@ from loader import dp, bot
 from utils.db_api import quick_commands
 
 
-@dp.message_handler(Command("remind_me"), IsPrivate())
-async def remind_me(message: types.Message):
+@dp.message_handler(Command("remind_me"), IsPrivate(), state='*')
+async def remind_me(message: types.Message, state: FSMContext):
+    await state.finish()
     user = await quick_commands.select_user(message.from_user.id)
     remind_status = user.reminder
     if remind_status == 1:
